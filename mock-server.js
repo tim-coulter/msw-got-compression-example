@@ -14,9 +14,7 @@ const generateNFieldObject = (n) => {
 
 app.use(compression())
 app.get('/test/:number', (req, res) => {
-	console.log(req);
 	const body = generateNFieldObject(req.params.number)
-	console.log(Object.keys(body).length);
 	res.json(body);
 });
 

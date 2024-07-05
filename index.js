@@ -9,7 +9,7 @@ const sendRequests = async (number) => {
 			got.get('http://localhost:1234/test/60').then(() => console.log(`got works ${number}`))
 		]
 	)
-	console.log('everything works')
+	console.log(`everything works ${1}`)
 }
 
 const example = async () => {
@@ -19,7 +19,7 @@ const example = async () => {
 	const server = setupServer();
 	server.listen();
 	await sendRequests(2);
-	console.log('second test done');
+	console.log('second test done (never reach here 😢)');
 }
 
 example();
