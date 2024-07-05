@@ -1,39 +1,25 @@
-import got from "got";
-
-console.log('Hello, World!');
-
-
 import { setupServer } from 'msw/node';
-import {http, passthrough} from "msw";
+import got from 'got';
 
+const sendRequests = async (number) => {
+	await Promise.all([
+			fetch('http://localhost:1234/test/60', {
+				method: 'GET',
+			}).then(() => console.log(`fetch works ${number}`)),
+			got.get('http://localhost:1234/test/60').then(() => console.log(`got works ${number}`))
+		]
+	)
+	console.log('everything works')
+}
 
-const setupMockServer = () => {
+const example = async () => {
+	await sendRequests(1);
+	console.log('first test done, starting mock server');
+	// not intercepting any requests
 	const server = setupServer();
-	// server.use(http.get('*', () => passthrough()))
-	server.events.on('response:bypass', ({request: _request}) => {
-		console.warn(`bypass ${_request.url}`);
-	});
-
-	server.events.on('unhandledException', ({request: _request}) => {
-		console.warn(`unhandled ${_request.url}`);
-	});
-
-	server.events.on('request:end', ({request: _request}) => {
-		// console.warn(`end123: ${_request.url}`);
-	});
 	server.listen();
+	await sendRequests(2);
+	console.log('second test done');
 }
-setupMockServer();
 
-const testNFieldRequest = async (n) => {
-	for (let i = 0; i < 100; i++) {
-		await got.get(`http://localhost:1234/test/${n}`);
-		console.log('done', i)
-	}
-}
-console.log('start')
-testNFieldRequest(1000).then(() => {
-	console.log('done all')
-}).catch((err) => {
-	console.error('err', err)
-})
+example();

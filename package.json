@@ -3,7 +3,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "server": "node mock-server.js",
+    "test": "node index.js"
   },
   "author": "",
   "license": "ISC",

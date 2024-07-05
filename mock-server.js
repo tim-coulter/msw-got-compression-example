@@ -9,13 +9,15 @@ const generateNFieldObject = (n) => {
 	for (let i = 1; i <= n; i++) {
 		nFieldObject[`field${i}`] = `value${i}`;
 	}
-	console.log(nFieldObject);
 	return nFieldObject;
 }
 
-// app.use(compression())
+app.use(compression())
 app.get('/test/:number', (req, res) => {
-	res.json(generateNFieldObject(req.params.number));
+	console.log(req);
+	const body = generateNFieldObject(req.params.number)
+	console.log(Object.keys(body).length);
+	res.json(body);
 });
 
 app.listen(1234, () => {
