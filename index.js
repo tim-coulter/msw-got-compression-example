@@ -21,19 +21,19 @@ const setupMockServer = () => {
 	server.events.on('request:end', ({request: _request}) => {
 		// console.warn(`end123: ${_request.url}`);
 	});
-	server.listen({onUnhandledRequest: 'bypass'});
+	server.listen();
 }
 setupMockServer();
 
-const testTwoRequests = async () => {
+const testNFieldRequest = async (n) => {
 	for (let i = 0; i < 100; i++) {
-		await got.get('http://localhost:1234/test/1000');
+		await got.get(`http://localhost:1234/test/${n}`);
 		console.log('done', i)
 	}
 }
 console.log('start')
-testTwoRequests().then(() => {
-	console.log('done')
+testNFieldRequest(1000).then(() => {
+	console.log('done all')
 }).catch((err) => {
 	console.error('err', err)
 })

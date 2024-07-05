@@ -4,7 +4,6 @@ import compression from "compression";
 
 const app = express();
 
-// I want to call this server to mock a response from index.js
 const generateNFieldObject = (n) => {
 	const nFieldObject = {};
 	for (let i = 1; i <= n; i++) {
